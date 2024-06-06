@@ -1,189 +1,39 @@
 import pygame
-import sys
+from Floor import Floor
+from Elevator import Elevator
+from Building import Building
 pygame.init()
 screen_width = 1000
-screen_height =1000
-screen = pygame.display.set_mode((screen_width, screen_height)) 
-wight = (255, 255, 255)
+screen_height = 1000
+screen = pygame.display.set_mode((screen_width, screen_height))
+white = (255, 255, 255)
 red = (255, 0, 0)
-# pygame.display.set_caption()  
-# image = pygame.image.load("elv.png")
-# image_rect = image.get_rect()
-# x ,y = screen_width // 2 -image.get.screen_width, screen_height // 2 -image_rect.screen_height
-run =True
-while run :
+screen.fill(white)
+building = Building(10, 4)
+pygame.display.flip()
+floor = Floor(0)
+building.building(screen)
+
+run = True
+while run: 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: 
-            run = False
-    screen.fill(red)
+        if event.type == pygame.QUIT:
+                run = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                for floor in building.get_self__floors():
+                    floor.button_clicked(screen, mouse_pos) 
+                    if floor.button_rect.collidepoint(mouse_pos):
+                        floor_number = floor.get_floors_number()
+                        building.please_elevator(floor_number) 
+    building.move_all_elevators(screen) 
+    for elevator in building.get_elevators():
+         elevator.draw_elevator(screen)  
+    for floor in building.get_self__floors():
+        floor.draw_floor(screen)     
     pygame.display.flip()
-    # screen.blit(image, (x, y))
-    # pygame.display.flip()  
-pygame.quit() 
-sys.exit()
+    pygame.time.Clock().tick(60)              
+pygame.quit()
 
-
-# pygame.draw.rect()
-# pygame.key.get_pressed()
-# pygame.mixer.Sound()
-# pygame.time.Clock()
-# pygame.font.Font()
-# pygame.
-
-
-
+    
    
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# pygame.display.set_caption()  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
