@@ -1,23 +1,24 @@
 import pygame
 from collections import deque
+from Floor import Floor
 WHITE = (255, 255, 255)
-FLOOR_WIDTH = 133
-SOUND_FLIP = "ding.mp3"
+FLOOR_WIDTH = 200
+
 pygame.mixer.init()
-DING = pygame.mixer.music.load("ding.mp3")
+pygame.mixer.music.load("ding.mp3")
 
 white = (255, 255, 255)
 class Elevator:
     def __init__(self, number_elevator):
         self.__number_elevator = number_elevator
         self.__elevator_queue = deque([]) 
-        # self.__elevator_position = 0
         pygame.time.Clock()
         self.__elevator_top =1000
         self.current_floor  = 0
+        
    
     def draw_elevator(self, screen):
-        elevator_image = pygame.image.load("elv(1)(1)(1).png")
+        elevator_image = pygame.image.load("elv.png")
         occupied_pixels = FLOOR_WIDTH + \
             (elevator_image.get_width() * self.__number_elevator)
         y =  self.__elevator_top
@@ -29,31 +30,25 @@ class Elevator:
         self.current_floor  = 0
         return self.__elevator_top
  
-    def move_elevator_to_floor(self, floor_y, screen):
+ 
+    def move_elevator_to_floor(self, floor_y, floor_number):
         elevator_top = self.__elevator_top 
         if elevator_top != floor_y + 35:
             if elevator_top < floor_y + 35:
-                elevator_top +=  1   
+                elevator_top +=  0.5  
             elif elevator_top > floor_y + 35:
-                elevator_top -=  1      
-            # if elevator_top == floor_y:
-            #     pygame.time.wait(2000)  
+                elevator_top -=  0.5      
         self.set_elevator_top(elevator_top)
-        if elevator_top == floor_y + 35 :
-            print("hallo")
+        if elevator_top == floor_y + 35 : 
             self.set_elevator_pop_queue()
-            # print(self.set_elevator_pop_queue())
-        
-            # self.draw_elevator()
-            # pygame.display.flip()
+            pygame.mixer.music.play()
+            return floor_number  
             
-                # DING.play()  
-    
-        #  pygame.time.get_ticks()
-    
+            
+            
     def go_to_floor(self, floor_number):
         self.target_floor = floor_number
-        # self.current_floor = floor_number
+        self.current_floor = floor_number
     
     def get_number(self):
         return self.__number_elevator
@@ -65,7 +60,7 @@ class Elevator:
             return None
     
     def set_elevator_queue(self, floor, finish_time):
-        self.__elevator_queue.append((floor, finish_time)) 
+        self.__elevator_queue.append((floor, finish_time + 2)) 
         print(self.__elevator_queue)
 
     def get_elevator_number(self):
@@ -88,15 +83,3 @@ class Elevator:
    
     def set_elevator_top(self, top):
         self.__elevator_top = top
-        
-# a = Elevator(1)
-# print(a.get_last_task())
-# print(a.get_first_task())
- 
-    
-    
-    
-    
-    
-    
-   

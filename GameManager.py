@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 white = (255, 255, 255)
 red = (255, 0, 0)
 screen.fill(white)
-building = Building(10, 4)
+building = Building(10, 2)
 pygame.display.flip()
 floor = Floor(0)
 building.building(screen)
@@ -31,9 +31,6 @@ while run:
          elevator.draw_elevator(screen)  
     for floor in building.get_self__floors():
         floor.draw_floor(screen)     
-    pygame.display.flip()
-    pygame.time.Clock().tick(60)              
+    pygame.display.flip()           
+    print(pygame.time.get_ticks())
 pygame.quit()
-
-    
-   
